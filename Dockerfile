@@ -32,7 +32,8 @@ FROM nginx:stable AS deploy
 RUN rm /etc/nginx/conf.d/default.conf
 
 # copy nginx
-COPY ./bifi_app/nginx.conf /etc/nginx/conf.d/default.conf
+# COPY ./bifi_app/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/bifi_app/nginx.conf /etc/nginx/conf.d/default.conf
 
 # copy dist
 COPY --from=build /app/dist/*/browser /usr/share/nginx/html
