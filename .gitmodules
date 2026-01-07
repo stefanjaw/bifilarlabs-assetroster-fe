@@ -1,0 +1,4 @@
+[submodule "bifi_app"]
+	path = bifi_app
+	url = https://github.com/stefanjaw/bifi_app.git
+	branch = angularv20
