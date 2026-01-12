@@ -1,5 +1,5 @@
 export const environment = {
-  apiURL: "https://bifilarlabs-assetroster-be-332632612004.us-central1.run.app/api",
+  apiURL: "http://localhost:8081/api",
   firebaseConfig:  {
     apiKey: "AIzaSyD55ZMbnfoawzMN0nquLvCF4ao9QMYFVkA",
     authDomain: "asset-roster.firebaseapp.com",
