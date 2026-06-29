@@ -1,12 +1,77 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {
+  ApplicationConfig,
+  provideBrowserGlobalErrorListeners,
+  provideZoneChangeDetection,
+} from '@angular/core';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
+import { LIBRARY_CONFIG } from '@avalantec/base-app/core';
+import { environment } from '../environments/environment';
+import { provideAppAuth, APP_AUTH_SERVICE } from '@avalantec/base-app/auth';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+import { CrudUsers } from '@avalantec/base-app/users';
+import { MessageService } from 'primeng/api';
+import { Noir } from './primeng.preset';
+import { providePrimeNG } from 'primeng/config';
+import { provideMenuItems, withLibraryInterceptors } from '@avalantec/base-app/routing';
+
+import { provideWebsite } from '@avalantec/website';
+import { provideTasks } from '@avalantec/tasks';
+import { provideSales } from '@avalantec/sales';
+import { providePurchases } from '@avalantec/purchases';
+import { provideInventory } from '@avalantec/inventory';
+import { provideHelpdesk } from '@avalantec/helpdesk';
+import { provideCalendar } from '@avalantec/calendar';
+import { provideProjects } from '@avalantec/projects';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimationsAsync(),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes)
-  ]
+    provideRouter(routes, withComponentInputBinding()),
+    {
+      provide: LIBRARY_CONFIG,
+      useValue: { 
+        apiURL: environment.apiURL, 
+        rbacEnable: true,
+        bugReportingURL: environment.bugReportingURL,
+      },
+    },
+    providePrimeNG({
+      theme: {
+        preset: Noir,
+        options: {
+          darkModeSelector: false,
+        },
+      },
+    }),
+    provideHttpClient(
+      withFetch(),
+      withLibraryInterceptors({
+        auth: true,
+        customInterceptors: [],
+      })
+    ),
+    provideAppAuth({
+      authProvider: {
+        type: 'FIREBASE',
+        token: APP_AUTH_SERVICE,
+        config: environment.firebaseConfig,
+      },
+      backendAuth: CrudUsers,
+    }),
+    MessageService,
+    provideCalendar(),
+    provideWebsite(),
+    provideTasks(),
+    provideProjects(),
+    provideSales(),
+    providePurchases(),
+    provideInventory(),
+    provideHelpdesk(),
+    provideMenuItems(),
+  ],
 };

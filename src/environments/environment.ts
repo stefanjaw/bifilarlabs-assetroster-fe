@@ -1,5 +1,6 @@
 export const environment = {
-  apiURL: "https://assetroster-be:8081",
+  apiURL: "/api",
+  bugReportingURL: '/api/report-bug',
   firebaseConfig:  {
     apiKey: "AIzaSyD55ZMbnfoawzMN0nquLvCF4ao9QMYFVkA",
     authDomain: "asset-roster.firebaseapp.com",
