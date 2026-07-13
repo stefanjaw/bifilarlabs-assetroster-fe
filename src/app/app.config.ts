@@ -15,7 +15,7 @@ import { MessageService } from 'primeng/api';
 import { Noir } from './primeng.preset';
 import { providePrimeNG } from 'primeng/config';
 import { provideMenuItems, withLibraryInterceptors } from '@avalantec/base-app/routing';
-
+import { provideTranslationRoot } from '@avalantec/base-app/i18n';
 import { provideWebsite } from '@avalantec/website';
 import { provideTasks } from '@avalantec/tasks';
 import { provideSales } from '@avalantec/sales';
@@ -73,5 +73,6 @@ export const appConfig: ApplicationConfig = {
     provideInventory(),
     provideHelpdesk(),
     provideMenuItems(),
+    provideTranslationRoot(),
   ],
 };
