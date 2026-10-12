@@ -24,7 +24,7 @@ import { provideInventory } from '@avalantec/inventory';
 import { provideHelpdesk } from '@avalantec/helpdesk';
 import { provideCalendar } from '@avalantec/calendar';
 import { provideProjects } from '@avalantec/projects';
-
+import { provideShareAccess, provideShareMenuAccess } from '@avalantec/base-app/shares';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -36,7 +36,7 @@ export const appConfig: ApplicationConfig = {
       provide: LIBRARY_CONFIG,
       useValue: { 
         apiURL: environment.apiURL, 
-        rbacEnable: true,
+        rbacEnable: environment.rbacEnable,
         bugReportingURL: environment.bugReportingURL,
       },
     },
@@ -73,6 +73,8 @@ export const appConfig: ApplicationConfig = {
     provideInventory(),
     provideHelpdesk(),
     provideMenuItems(),
+    provideShareAccess(),
+    provideShareMenuAccess(),
     provideTranslationRoot(),
   ],
 };
